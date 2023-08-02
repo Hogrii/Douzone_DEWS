@@ -1,0 +1,187 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<!-- 메이븐 프로젝트 생성 시 정보(필수사항) -->
+	<groupId>com.douzone.comet.service</groupId>
+	<artifactId>douzone-comet-service-ts-sample</artifactId>
+	<version>1.0.0.0</version>
+	<!-- 프로젝트 빌드 했을 때 산출물 정보 -->
+	<packaging>jar</packaging>
+	<name></name>
+	<description></description>
+	<!-- pom.xml에 사용되는 변수 선언. 뒤에서 ${변수명}으로 사용 -->
+	<properties>
+		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<!-- douzone gpd -->
+		<douzone.gpd.core.version>RELEASE</douzone.gpd.core.version>
+		<douzone.gpd.util.version>RELEASE</douzone.gpd.util.version>
+		<douzone.gpd.data.version>RELEASE</douzone.gpd.data.version>
+		<douzone.gpd.jdbc.version>RELEASE</douzone.gpd.jdbc.version>
+		<douzone.gpd.restful.version>RELEASE</douzone.gpd.restful.version>
+		<douzone.gpd.components.version>RELEASE</douzone.gpd.components.version>
+
+		<!-- douzone comet -->
+		<douzone.comet.components.version>RELEASE</douzone.comet.components.version>
+		<douzone.comet.service.util.version>RELEASE</douzone.comet.service.util.version>
+		<douzone.comet.util.version>RELEASE</douzone.comet.util.version>
+		<!-- Spring -->
+		<spring-framework.version>4.3.10.RELEASE</spring-framework.version>
+
+		<!-- junit -->
+		<junit.version>4.12</junit.version>
+
+		<servlet.version>3.1.0</servlet.version>
+
+		<!-- maven-eclipse-plugin -->
+		<maven.eclipse.plugin.version>2.9</maven.eclipse.plugin.version>
+
+		<!-- maven-compiler-plugin -->
+		<maven.compiler.plugin.version>3.6.1</maven.compiler.plugin.version>
+
+		<!-- exec-maven-plugin -->
+		<exec.maven.plugin.version>1.2.1</exec.maven.plugin.version>
+	</properties>
+	<!-- 레파지토리(원격저장소) 정보. setting.xml 파일과 일치 -->
+	<repositories>
+		<repository>
+			<id>nexus</id> <!-- 서버 이름 -->
+			<name>comet2020-group</name>
+			<url>https://repo.comet.duzon.net/repository/comet2020-group/</url>
+		</repository>
+	</repositories>
+	<!-- 원격저장소 배포를 하기 위한 정보 -->
+	<!-- nexus deploy repo -->
+	<distributionManagement>
+		<repository>
+			<id>nexus</id>
+			<name>Releases</name>
+			<url>https://repo.comet.duzon.net/repository/comet2020-releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus</id>
+			<name>Snapshot</name>
+			<url>https://repo.comet.duzon.net/repository/comet2020-snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<!-- pom.xml 핵심. 의존성을 정의하는 부분. 라이브러리를 불러오는 부분 -->
+	<dependencies>
+		<!-- douzone gpd -->
+		<dependency>
+			<groupId>com.douzone.gpd.framework</groupId>
+			<artifactId>douzone-gpd-core</artifactId>
+			<version>${douzone.gpd.core.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.douzone.gpd.framework</groupId>
+			<artifactId>douzone-gpd-util</artifactId>
+			<version>${douzone.gpd.util.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.douzone.gpd.framework</groupId>
+			<artifactId>douzone-gpd-data</artifactId>
+			<version>${douzone.gpd.data.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.douzone.gpd.framework</groupId>
+			<artifactId>douzone-gpd-jdbc</artifactId>
+			<version>${douzone.gpd.jdbc.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.douzone.gpd.framework</groupId>
+			<artifactId>douzone-gpd-restful</artifactId>
+			<version>${douzone.gpd.restful.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.douzone.gpd.framework</groupId>
+			<artifactId>douzone-gpd-components</artifactId>
+			<version>${douzone.gpd.components.version}</version>
+		</dependency>
+		<!-- douzone comet -->
+		<dependency>
+			<groupId>com.douzone.comet</groupId>
+			<artifactId>douzone-comet-components</artifactId>
+			<version>${douzone.comet.components.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.douzone.comet</groupId>
+			<artifactId>douzone-comet-service-util</artifactId>
+			<version>${douzone.comet.service.util.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.douzone.comet</groupId>
+			<artifactId>douzone-comet-util</artifactId>
+			<version>${douzone.comet.util.version}</version>
+		</dependency>
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring-framework.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-expression</artifactId>
+				</exclusion>
+			</exclusions>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<!-- 프로젝트 빌드 정보. 메이븐 관련 플러그인 정보  -->
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>${maven.eclipse.plugin.version}</version>
+				<configuration>
+					<additionalProjectnatures>
+						<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+					</additionalProjectnatures>
+					<additionalBuildcommands>
+						<buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
+					</additionalBuildcommands>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven.compiler.plugin.version}</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<compilerArgument>-Xlint:all</compilerArgument>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>${exec.maven.plugin.version}</version>
+				<configuration>
+					<mainClass>org.test.int1.Main</mainClass>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
